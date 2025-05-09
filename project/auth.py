@@ -16,11 +16,7 @@ def login_post():
     password = request.form.get('password')
     remember = True if request.form.get('remember') else False
 
-    user = db.session.execute(
-    text('SELECT * FROM user WHERE email = :email'),
-    {"email": email}
-).all()
-
+    user = User.query.filter_by(email=email).first()
 
     # check if the user actually exists
     # take the user-supplied password and compare it with the stored password
